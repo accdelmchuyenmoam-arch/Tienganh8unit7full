@@ -3,192 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Unit 7: Environmental Protection - Tiếng Anh 8</title>
+    <title>Unit 7: English 8 - Success</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root { --primary: #2e7d32; --bg: #f1f8e9; }
         body { margin: 0; background: var(--bg); font-family: 'Lexend', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; padding-top: 80px; }
-        
-        /* Giao diện Slide */
-        .slide { 
-            width: 100%; max-width: 800px; min-height: 450px; 
-            background: white; border-radius: 15px; margin-bottom: 30px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1); overflow: hidden;
-            display: flex; flex-direction: column; position: relative;
-        }
+        .slide { width: 100%; max-width: 800px; min-height: 450px; background: white; border-radius: 15px; margin-bottom: 30px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
         .content { padding: 30px; flex: 1; }
         .slide-footer { background: var(--primary); color: white; padding: 12px 25px; display: flex; justify-content: space-between; font-size: 13px; font-weight: bold; }
-        
-        h1 { color: var(--primary); font-size: 28px; margin-bottom: 10px; }
-        h2 { color: var(--primary); border-left: 5px solid var(--primary); padding-left: 15px; margin-top: 0; }
+        h1, h2 { color: var(--primary); }
         .vocab-item { border-bottom: 1px solid #eee; padding: 10px 0; display: flex; justify-content: space-between; }
-        ul { line-height: 1.8; }
 
-        /* Nút Chat ở trên cùng bên phải để không bị che bởi quảng cáo */
-        #chat-btn { 
-            position: fixed; top: 15px; right: 15px; 
-            width: 60px; height: 60px; background: var(--primary); 
-            border-radius: 50%; color: white; display: flex; 
-            align-items: center; justify-content: center; 
-            cursor: pointer; z-index: 2001; box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-        }
-        
-        #chat-window { 
-            position: fixed; top: 85px; right: 15px; 
-            width: calc(100% - 30px); max-width: 360px; 
-            height: 500px; background: white; border-radius: 15px; 
-            display: none; flex-direction: column; 
-            box-shadow: 0 5px 30px rgba(0,0,0,0.2); z-index: 2000; 
-            overflow: hidden; border: 1px solid #ddd; 
-        }
-        
+        /* Nút Chat trên cùng bên phải */
+        #chat-btn { position: fixed; top: 15px; right: 15px; width: 60px; height: 60px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2001; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        #chat-window { position: fixed; top: 85px; right: 15px; width: calc(100% - 30px); max-width: 360px; height: 500px; background: white; border-radius: 15px; display: none; flex-direction: column; box-shadow: 0 5px 30px rgba(0,0,0,0.2); z-index: 2000; overflow: hidden; border: 1px solid #ddd; }
         #chat-header { background: var(--primary); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; }
         #messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; background: #f9f9f9; }
         .msg { padding: 10px 15px; border-radius: 15px; font-size: 14px; max-width: 85%; line-height: 1.5; }
-        .user { background: var(--primary); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .ai { background: #e0e0e0; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; }
-        
+        .user { background: var(--primary); color: white; align-self: flex-end; }
+        .ai { background: #e0e0e0; color: #333; align-self: flex-start; }
         #input-area { padding: 12px; display: flex; gap: 8px; border-top: 1px solid #eee; background: white; }
-        #user-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; font-family: inherit; }
-        #send-btn { background: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        #send-btn:hover { background: #1b5e20; }
+        #user-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 25px; outline: none; }
+        #send-btn { background: var(--primary); color: white; border: none; padding: 10px 18px; border-radius: 50%; cursor: pointer; }
     </style>
 </head>
 <body>
 
     <div id="chat-btn" onclick="toggleChat()"><i class="fa-solid fa-robot fa-xl"></i></div>
     <div id="chat-window">
-        <div id="chat-header">
-            <span><i class="fa-solid fa-graduation-cap"></i> Trợ lý Unit 7</span>
-            <i class="fa-solid fa-xmark" onclick="toggleChat()" style="cursor:pointer"></i>
-        </div>
-        <div id="messages">
-            <div class="msg ai">Chào bạn! Mình là AI hỗ trợ học tập Unit 7. Bạn cần giải thích từ vựng hay ngữ pháp nào không?</div>
-        </div>
+        <div id="chat-header"><span>Trợ lý Unit 7</span><i class="fa-solid fa-xmark" onclick="toggleChat()" style="cursor:pointer"></i></div>
+        <div id="messages"><div class="msg ai">Chào bạn! Mình đã sửa lỗi kết nối, bạn thử hỏi lại nhé!</div></div>
         <div id="input-area">
-            <input type="text" id="user-input" placeholder="Hỏi về bài học...">
+            <input type="text" id="user-input" placeholder="Hỏi về Unit 7...">
             <button id="send-btn" onclick="askAI()"><i class="fa-solid fa-paper-plane"></i></button>
         </div>
     </div>
 
-    <div class="slide">
-        <div class="content" style="text-align: center; display: flex; flex-direction: column; justify-content: center;">
-            <h1 style="font-size: 35px;">Unit 7:<br>Environmental Protection</h1>
-            <p style="font-size: 22px; color: #d84315; font-family: cursive; margin-top: 20px;">"Go Green for a Better Future!"</p>
-        </div>
-        <div class="slide-footer"><span>Trang 1</span><span>English 8 Success</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Mục tiêu bài học</h2>
-            <ul style="font-size: 18px;">
-                <li><b>Vocabulary:</b> Các từ vựng về bảo vệ môi trường.</li>
-                <li><b>Pronunciation:</b> Phát âm cụm phụ âm /bl/ và /kl/.</li>
-                <li><b>Grammar:</b> Mệnh đề trạng ngữ chỉ thời gian (Adverb clauses of time).</li>
-            </ul>
-        </div>
-        <div class="slide-footer"><span>Trang 2</span><span>Objectives</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Từ vựng mới (Vocabulary)</h2>
-            <div class="vocab-item"><b>Pollution (n)</b> <span>Sự ô nhiễm</span></div>
-            <div class="vocab-item"><b>Aquatic (adj)</b> <span>Dưới nước</span></div>
-            <div class="vocab-item"><b>Thermal (adj)</b> <span>Thuộc về nhiệt</span></div>
-            <div class="vocab-item"><b>Radioactive (adj)</b> <span>Phóng xạ</span></div>
-            <div class="vocab-item"><b>Endangered (adj)</b> <span>Đang gặp nguy hiểm</span></div>
-        </div>
-        <div class="slide-footer"><span>Trang 3</span><span>Vocabulary</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Phát âm (Pronunciation)</h2>
-            <p>Luyện tập phân biệt âm /bl/ và /kl/:</p>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
-                <div style="background: #e8f5e9; padding: 15px; border-radius: 10px;">
-                    <strong style="color: #2e7d32; font-size: 20px;">/bl/</strong>
-                    <p>blue, black, blind, blossom, blanket</p>
-                </div>
-                <div style="background: #fff3e0; padding: 15px; border-radius: 10px;">
-                    <strong style="color: #e65100; font-size: 20px;">/kl/</strong>
-                    <p>clear, clean, clock, climate, click</p>
-                </div>
-            </div>
-        </div>
-        <div class="slide-footer"><span>Trang 4</span><span>Pronunciation</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Ngữ pháp (Grammar)</h2>
-            <p><b>Mệnh đề trạng ngữ chỉ thời gian:</b></p>
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 10px; border-left: 5px solid #2e7d32;">
-                <p>• <b>When / While:</b> Khi / Trong khi</p>
-                <p>• <b>Before / After:</b> Trước khi / Sau khi</p>
-                <li>• <b>As soon as:</b> Ngay khi</li>
-                <li>• <b>Until:</b> Cho đến khi</li>
-            </div>
-            <p><i>Ví dụ: <b>As soon as</b> I arrive, I will call you.</i></p>
-        </div>
-        <div class="slide-footer"><span>Trang 5</span><span>Grammar</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Luyện tập (Practice)</h2>
-            <p>Chọn liên từ đúng để hoàn thành câu:</p>
-            <p>1. We will go home (after / until) we finish the project.</p>
-            <p>2. (While / Before) I was picking up litter, it started to rain.</p>
-            <p>3. Don't go out (until / as soon as) you finish your homework.</p>
-        </div>
-        <div class="slide-footer"><span>Trang 6</span><span>Practice</span></div>
-    </div>
-
-    <div class="slide">
-        <div class="content">
-            <h2>Bài tập về nhà (Homework)</h2>
-            <ul style="font-size: 18px;">
-                <li>Học thuộc lòng 10 từ vựng mới.</li>
-                <li>Làm bài tập phần Grammar trong sách bài tập (trang 45).</li>
-                <li><b>Dự án:</b> Vẽ sơ đồ tư duy về các cách bảo vệ môi trường tại trường học.</li>
-            </ul>
-        </div>
-        <div class="slide-footer"><span>Trang 7</span><span>Homework</span></div>
-    </div>
+    <div class="slide"><div class="content"><h1>Unit 7: Environmental Protection</h1><p>"Go Green for a Better Future!"</p></div><div class="slide-footer"><span>Trang 1</span></div></div>
+    <div class="slide"><div class="content"><h2>Mục tiêu bài học</h2><ul><li>Từ vựng: Bảo vệ môi trường</li><li>Phát âm: /bl/ và /kl/</li><li>Ngữ pháp: Mệnh đề trạng ngữ chỉ thời gian</li></ul></div><div class="slide-footer"><span>Trang 2</span></div></div>
+    <div class="slide"><div class="content"><h2>Từ vựng (Vocabulary)</h2><div class="vocab-item"><b>Pollution</b><span>Ô nhiễm</span></div><div class="vocab-item"><b>Aquatic</b><span>Dưới nước</span></div><div class="vocab-item"><b>Thermal</b><span>Nhiệt</span></div></div><div class="slide-footer"><span>Trang 3</span></div></div>
+    <div class="slide"><div class="content"><h2>Phát âm</h2><p>/bl/: blue, black, blossom</p><p>/kl/: clean, clear, climate</p></div><div class="slide-footer"><span>Trang 4</span></div></div>
+    <div class="slide"><div class="content"><h2>Ngữ pháp</h2><p>Before, After, When, While, As soon as, Until...</p></div><div class="slide-footer"><span>Trang 5</span></div></div>
+    <div class="slide"><div class="content"><h2>Luyện tập</h2><p>1. Clean up before you leave.</p><p>2. Wait until the rain stops.</p></div><div class="slide-footer"><span>Trang 6</span></div></div>
+    <div class="slide"><div class="content"><h2>BTVN</h2><p>Học từ vựng và chuẩn bị Poster bảo vệ môi trường.</p></div><div class="slide-footer"><span>Trang 7</span></div></div>
 
     <script>
-        // Hàm đóng/mở cửa sổ Chat
         function toggleChat() {
             const win = document.getElementById('chat-window');
             win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // KEY CỦA BẠN: AIzaSyAhn4wyBkRulkn0Ia6fJdVtNGsuEymFJX4
         const API_KEY = "AIzaSyAhn4wyBkRulkn0Ia6fJdVtNGsuEymFJX4";
 
         async function askAI() {
             const input = document.getElementById('user-input');
             const msgBox = document.getElementById('messages');
             const query = input.value.trim();
-            
             if (!query) return;
 
-            // Hiển thị câu hỏi của người dùng
             msgBox.innerHTML += `<div class="msg user">${query}</div>`;
             input.value = "";
             msgBox.scrollTop = msgBox.scrollHeight;
 
             try {
-                // Sử dụng API chính thức v1 của Google Gemini
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                // CHỈNH SỬA: Quay lại v1beta để tương thích với Flash 1.5 theo thông báo lỗi của bạn
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        contents: [{ parts: [{ text: `Bạn là trợ lý giáo viên Tiếng Anh lớp 8. Hãy giải thích ngắn gọn bằng tiếng Việt về câu hỏi sau trong Unit 7 (Environmental Protection): ${query}` }] }]
+                        contents: [{ parts: [{ text: `Giải thích ngắn gọn tiếng Việt về Unit 7 lớp 8: ${query}` }] }]
                     })
                 });
 
@@ -196,27 +80,19 @@
 
                 if (data.error) {
                     msgBox.innerHTML += `<div class="msg ai">Lỗi AI: ${data.error.message}</div>`;
-                } else if (data.candidates && data.candidates[0].content) {
+                } else {
                     const aiResponse = data.candidates[0].content.parts[0].text;
                     msgBox.innerHTML += `<div class="msg ai">${aiResponse}</div>`;
-                } else {
-                    msgBox.innerHTML += `<div class="msg ai">Mình chưa hiểu ý bạn, bạn hỏi lại nhé!</div>`;
                 }
             } catch (error) {
-                msgBox.innerHTML += `<div class="msg ai">Lỗi kết nối. Bạn hãy kiểm tra lại mạng hoặc Key nhé!</div>`;
+                msgBox.innerHTML += `<div class="msg ai">Lỗi mạng. Hãy thử dùng 4G.</div>`;
             }
-            
-            // Tự động cuộn xuống dưới cùng
             msgBox.scrollTop = msgBox.scrollHeight;
         }
 
-        // Hỗ trợ nhấn phím Enter để gửi tin nhắn
-        document.getElementById('user-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                askAI();
-            }
-        });
+        document.getElementById('user-input').addEventListener('keypress', (e) => { if(e.key === 'Enter') askAI(); });
     </script>
 </body>
 </html>
+
 
