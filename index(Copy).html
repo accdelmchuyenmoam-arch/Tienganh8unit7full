@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unit 7 English 8 - GitHub Pages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root { --primary: #2e7d32; --bg: #f1f8e9; }
+        body { margin: 0; background: var(--bg); font-family: 'Lexend', sans-serif; display: flex; flex-direction: column; align-items: center; padding: 15px; padding-top: 80px; }
+        .slide { width: 100%; max-width: 800px; min-height: 400px; background: white; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; }
+        .content { padding: 25px; flex: 1; }
+        .slide-footer { background: var(--primary); color: white; padding: 10px 20px; display: flex; justify-content: space-between; font-size: 12px; }
+        h2 { color: var(--primary); margin-top: 0; border-bottom: 2px solid var(--bg); padding-bottom: 5px; }
+
+        /* Nút Chat ở trên cùng bên phải để không bị che */
+        #chat-btn { position: fixed; top: 15px; right: 15px; width: 55px; height: 55px; background: var(--primary); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 2000; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        #chat-window { position: fixed; top: 80px; right: 15px; width: calc(100% - 30px); max-width: 350px; height: 450px; background: white; border-radius: 15px; display: none; flex-direction: column; box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 1999; overflow: hidden; border: 1px solid #ddd; }
+        #chat-header { background: var(--primary); color: white; padding: 15px; font-weight: bold; display: flex; justify-content: space-between; }
+        #messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #f9f9f9; }
+        .msg { padding: 10px 15px; border-radius: 12px; font-size: 14px; max-width: 85%; }
+        .user { background: var(--primary); color: white; align-self: flex-end; }
+        .ai { background: #eee; color: #333; align-self: flex-start; }
+        #input-area { padding: 10px; display: flex; gap: 5px; border-top: 1px solid #eee; }
+        input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        button { background: var(--primary); color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div id="chat-btn" onclick="toggleChat()"><i class="fa-solid fa-robot fa-lg"></i></div>
+    <div id="chat-window">
+        <div id="chat-header"><span>Trợ lý Unit 7</span><span onclick="toggleChat()" style="cursor:pointer">×</span></div>
+        <div id="messages"><div class="msg ai">Chào bạn! Mình đã sẵn sàng hỗ trợ bài học.</div></div>
+        <div id="input-area">
+            <input type="text" id="user-input" placeholder="Hỏi gì đó...">
+            <button onclick="askAI()">Gửi</button>
+        </div>
+    </div>
+
+    <div class="slide"><div class="content" style="text-align:center; padding-top:100px;"><h1>Unit 7: Environmental Protection</h1><p>English 8 Success</p></div><div class="slide-footer"><span>Trang 1</span></div></div>
+    <div class="slide"><div class="content"><h2>Objectives</h2><p>Luyện tập từ vựng, ngữ pháp và phát âm về chủ đề môi trường.</p></div><div class="slide-footer"><span>Trang 2</span></div></div>
+    <div class="slide"><div class="content"><h2>Vocabulary</h2><p>Pollution, Aquatic, Thermal, Radioactive...</p></div><div class="slide-footer"><span>Trang 3</span></div></div>
+    <div class="slide"><div class="content"><h2>Pronunciation</h2><p>Clusters: /bl/ and /kl/</p></div><div class="slide-footer"><span>Trang 4</span></div></div>
+    <div class="slide"><div class="content"><h2>Grammar</h2><p>Adverb clauses of time: When, While, Before, After...</p></div><div class="slide-footer"><span>Trang 5</span></div></div>
+    <div class="slide"><div class="content"><h2>Practice</h2><p>Hoàn thành các câu sử dụng liên từ thời gian.</p></div><div class="slide-footer"><span>Trang 6</span></div></div>
+    <div class="slide"><div class="content"><h2>Homework</h2><p>Làm bài tập trang 75 và chuẩn bị Poster.</p></div><div class="slide-footer"><span>Trang 7</span></div></div>
+
+    <script>
+        function toggleChat() {
+            const win = document.getElementById('chat-window');
+            win.style.display = win.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        const API_KEY = "AIzaSyAhn4wyBkRulkn0Ia6fJdVtNGsuEymFJX4"; 
+
+        async function askAI() {
+            const input = document.getElementById('user-input');
+            const msgBox = document.getElementById('messages');
+            const text = input.value.trim();
+            if (!text) return;
+
+            msgBox.innerHTML += `<div class="msg user">${text}</div>`;
+            input.value = "";
+            msgBox.scrollTop = msgBox.scrollHeight;
+
+            try {
+                // Gọi model 1.5-flash (chuẩn cho dự án mặc định)
+                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: `Bạn là GV Tiếng Anh. Giải thích ngắn gọn: ${text}` }] }] })
+                });
+
+                const data = await response.json();
+                
+                if (data.error) {
+                    msgBox.innerHTML += `<div class="msg ai">Lỗi AI: ${data.error.message}</div>`;
+                } else {
+                    const reply = data.candidates[0].content.parts[0].text;
+                    msgBox.innerHTML += `<div class="msg ai">${reply}</div>`;
+                }
+            } catch (e) {
+                msgBox.innerHTML += `<div class="msg ai">Lỗi kết nối. Hãy thử dùng 4G.</div>`;
+            }
+            msgBox.scrollTop = msgBox.scrollHeight;
+        }
+    </script>
+</body>
+</html>
